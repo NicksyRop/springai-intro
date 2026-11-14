@@ -2,7 +2,18 @@ spring:
   application:
     name: openai
 
+
   ai:
+    chat:
+      model: ollama   # Set default model here
     openai:
       api-key: ${OPENAI_API_KEY}
+    ollama:
+      base-url: http://localhost:11434  # Default Ollama server address  run -- to start it ollama run llama3.2
+      chat:
+        model: llama3.2                  # Default model name (e.g., mistral, llama3.2)
+      embedding:
+        enabled: true                   # Enable embedding auto-configuration
+        model: nomic-embed-text         # Default embedding model
+
 
