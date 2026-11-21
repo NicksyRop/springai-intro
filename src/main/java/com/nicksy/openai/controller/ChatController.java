@@ -12,11 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class ChatController {
-    private final ChatClient chatClient;
+    private final ChatClient ollamaChatClient;
+    private final ChatClient openAiChatClient;
 
-    @GetMapping("/chat")
-    public String chat(@RequestParam String message) {
-        return  chatClient.prompt(message)
+    @GetMapping("/openai/chat")
+    public String openAiChat(@RequestParam String message) {
+        return  openAiChatClient.prompt(message)
+                .call()
+                .content();
+    }
+
+    @GetMapping("/ollama/chat")
+    public String ollamaChat(@RequestParam String message) {
+        return  ollamaChatClient.prompt(message)
                 .call()
                 .content();
     }

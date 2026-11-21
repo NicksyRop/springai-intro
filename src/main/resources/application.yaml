@@ -5,7 +5,9 @@ spring:
 
   ai:
     chat:
-      model: ollama   # Set default model here
+      # model: ollama   # Set default model here
+      client:
+        enabled: false # add this when working with multiple ai models to prevent spring from creating default beans
     openai:
       api-key: ${OPENAI_API_KEY}
     ollama:
