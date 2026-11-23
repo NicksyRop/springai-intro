@@ -24,7 +24,13 @@ public class ChatController {
 
     @GetMapping("/ollama/chat")
     public String ollamaChat(@RequestParam String message) {
-        return  ollamaChatClient.prompt(message)
+        return  ollamaChatClient.prompt()
+//                .system("""
+//                        You are an internal HR assistant ,your role is help  employees with questions related to HR policies
+//                        such as leave policies and working hours.If user asks anything outside this topics
+//                        kindly inform them that you only answer HR related policies
+//                        """)
+                .user(message)
                 .call()
                 .content();
     }
