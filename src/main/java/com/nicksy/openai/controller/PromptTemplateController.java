@@ -1,10 +1,11 @@
 package com.nicksy.openai.controller;
 
 
-import jakarta.annotation.Resource;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,9 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PromptTemplateController {
     private final ChatClient ollamaChatClient;
 
-//    @Value("classpath :/promptTemplates/userPromptTemplate.ts")
-//    Resource userPromptTemplate;
-
+    @Value("classpath:/promptTemplates/userPromptTemplate.st")
+    Resource userPromptTemplate;
 
     String promptTemplate = """
         A customer named {customerName} sent the following email:
@@ -38,7 +38,7 @@ public class PromptTemplateController {
 
         return ollamaChatClient.prompt()
                 .user(userSpec -> userSpec
-                        .text(promptTemplate)
+                        .text(userPromptTemplate) //replace with either the one in resource folder or the above hardcoded
                         .param("customerName", customerName)
                         .param("customerEmail", customerEmail))
                 .call()
