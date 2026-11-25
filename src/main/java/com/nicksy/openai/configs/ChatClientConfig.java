@@ -17,10 +17,14 @@ public class ChatClientConfig {
     @Bean
     public ChatClient ollamaChatClient(OllamaChatModel ollamaChatModel) {
         return ChatClient.builder(ollamaChatModel)
-                        .defaultSystem("""
-                                        You are an internal HR assistant ,your role is help  employees with questions related to HR policies
-                                        such as leave policies and working hours.If user asks anything outside this topics
-                                        kindly inform them that you only answer HR related policies
+//                        .defaultSystem("""
+//                                        You are an internal HR assistant ,your role is help  employees with questions related to HR policies
+//                                        such as leave policies and working hours.If user asks anything outside this topics
+//                                        kindly inform them that you only answer HR related policies
+//                                       """)
+                .defaultSystem("""
+                                        You are a professional customer service assistant which helps in drafting email response 
+                                        to improve productivity of customer support team
                                        """)
                 .defaultUser("How can you help me?") //this will be the default user prompt if not message is passed in the controller in user(message)
                 .build();
