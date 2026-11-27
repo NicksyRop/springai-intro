@@ -3,11 +3,15 @@ package com.nicksy.openai.configs;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 
 @Configuration
 public class ChatClientConfig {
+    @Value("classpath:promptTemplates/systemPromptTemplate.st")
+    Resource systemPromptTemplate;
 
     @Bean
     public ChatClient openAiChatClient(OpenAiChatModel openAiChatModel) {
@@ -22,11 +26,12 @@ public class ChatClientConfig {
 //                                        such as leave policies and working hours.If user asks anything outside this topics
 //                                        kindly inform them that you only answer HR related policies
 //                                       """)
-                .defaultSystem("""
-                                        You are a professional customer service assistant which helps in drafting email response 
-                                        to improve productivity of customer support team
-                                       """)
-                .defaultUser("How can you help me?") //this will be the default user prompt if not message is passed in the controller in user(message)
+//                .defaultSystem("""
+//                                        You are a professional customer service assistant which helps in drafting email response
+//                                        to improve productivity of customer support team
+//                                       """)
+          //      .defaultUser("How can you help me?") //this will be the default user prompt if not message is passed in the controller in user(message)
+                .defaultSystem(systemPromptTemplate)
                 .build();
         //the builder gives us more options like default system  options etc check builder. methods
         //return ChatClient object
