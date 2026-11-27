@@ -18,4 +18,14 @@ spring:
         enabled: true                   # Enable embedding auto-configuration
         model: nomic-embed-text         # Default embedding model
 
+logging:
+  level:
+    org:
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG
+
+
 

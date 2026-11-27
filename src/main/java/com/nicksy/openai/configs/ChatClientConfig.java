@@ -1,12 +1,16 @@
 package com.nicksy.openai.configs;
 
+import com.nicksy.openai.advisors.TokenUsageAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+
+import java.util.List;
 
 @Configuration
 public class ChatClientConfig {
@@ -32,6 +36,7 @@ public class ChatClientConfig {
 //                                       """)
           //      .defaultUser("How can you help me?") //this will be the default user prompt if not message is passed in the controller in user(message)
                 .defaultSystem(systemPromptTemplate)
+                .defaultAdvisors(List.of(new SimpleLoggerAdvisor(), new TokenUsageAdvisor()))
                 .build();
         //the builder gives us more options like default system  options etc check builder. methods
         //return ChatClient object
